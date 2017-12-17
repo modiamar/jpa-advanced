@@ -7,8 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.example.demo.domain.Course;
-import com.example.demo.repositories.CourseRepository;
+import com.example.demo.repositories.StudentRepository;
 
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner{
@@ -16,7 +15,7 @@ public class DemoApplication implements CommandLineRunner{
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-	private CourseRepository courseRepository;
+	private StudentRepository studentRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
@@ -31,7 +30,8 @@ public class DemoApplication implements CommandLineRunner{
 		course.setName("bonbribnr");
 		courseRepository.insert(course);
 		System.out.println(courseRepository.findById(10001L)); 
-		**/
+		*/
 		
+		studentRepository.bootstrapData();
 	}
 }

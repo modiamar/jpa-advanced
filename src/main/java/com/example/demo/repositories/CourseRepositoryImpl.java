@@ -4,14 +4,26 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.domain.Course;
+import com.example.demo.repositories.CourseRepositoryImpl.HelloWorld;
 
 @Repository
 @Transactional
 public class CourseRepositoryImpl implements CourseRepository {
+	
+	class HelloWorld {
+		
+		private String hello;
+
+		public HelloWorld(String hello) {
+			super();
+			this.hello = hello;
+		}
+	}
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -24,6 +36,7 @@ public class CourseRepositoryImpl implements CourseRepository {
 
 	@Override
 	public Course findById(Long id) {
+		HelloWorld helloWorld = new HelloWorld("hello");
 		Course course = entityManager.find(Course.class, id);
 		return course;
 	}

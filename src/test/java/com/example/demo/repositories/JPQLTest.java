@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,6 +44,7 @@ public class JPQLTest {
 		TypedQuery<Course> query = em.createNamedQuery("find_by_name", Course.class);
 		Course course = query.setParameter("name", "JPA in 50 Steps").getSingleResult();
 		assertEquals("JPA in 50 Steps", course.getName());
+		
 	}
 	
 	@Test
@@ -71,7 +71,10 @@ public class JPQLTest {
 		//This is a native query
 		String statement = "Select * from Course where id = :id";
 		Query createNativeQuery = em.createNativeQuery(statement, Course.class);
+		
+		@SuppressWarnings("unchecked")
 		List<Course> resultList = createNativeQuery.setParameter("id", 10001L).getResultList();
+		
 		resultList.forEach(course -> {
 			System.out.println(course);
 		});

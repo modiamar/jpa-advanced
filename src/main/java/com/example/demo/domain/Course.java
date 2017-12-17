@@ -13,10 +13,12 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+//OneToMany Relationship with Review
 @Entity
 @NamedQueries({
 	@NamedQuery(name = "find_by_name", query= "Select c from Course c where c.name = :name"),
-	@NamedQuery(name = "find_by_id", query= "Select c from Course c where c.id = :id")
+	@NamedQuery(name = "find_by_id", query= "Select c from Course c where c.id = :id"),
+	@NamedQuery(name = "find_all", query= "Select c from Course c")
 })
 public class Course {
 	
