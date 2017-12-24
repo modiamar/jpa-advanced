@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.demo.domain.Course;
 import com.example.demo.domain.Passport;
 import com.example.demo.domain.Student;
 
@@ -40,6 +41,15 @@ public class StudentRepositoryImplTest {
 		student.setName("Waffle");
 		em.flush();
 	}
+	
+	@Test
+	@Transactional
+	public void testRetrieveStudentFromPassport() {
+		Passport passport = em.find(Passport.class, 40001L);
+		System.out.println(passport);
+		Student student = passport.getStudent();
+		System.out.println(student);
+	}
 
 	@Test
 	@Transactional
@@ -49,5 +59,18 @@ public class StudentRepositoryImplTest {
 		Passport passport = student.getPassport();
 		System.err.println(passport);
 	}
+	
+	@Test
+	@Transactional
+	public void retrieveCoursesFromStudent() {
+		Student student = em.find(Student.class, 10003L);
+		System.out.println(student.getCourses());
+	}
 
+	@Test
+	@Transactional
+	public void retrieveStudentsFromCourse() {
+		Course course = em.find(Course.class, 10003L);
+		System.out.println(course.getStudents());
+	}
 }

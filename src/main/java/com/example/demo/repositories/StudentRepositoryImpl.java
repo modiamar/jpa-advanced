@@ -6,6 +6,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.demo.domain.Course;
 import com.example.demo.domain.Passport;
 import com.example.demo.domain.Student;
 
@@ -45,21 +46,48 @@ public class StudentRepositoryImpl implements StudentRepository {
 	
 	@Override
 	public void bootstrapData() {
-		Student student = em.find(Student.class, 10003L);
-		Passport passport = student.getPassport();
-		passport.setNumber("123477788");
-		student.setName("Waffle");
-		em.flush();
+		Student student = findById(10003L);
+		//Passport passport = student.getPassport();
+		Passport passport = new Passport("123478338LLL");
+		//passport.setStudent(student);
+		em.persist(passport);
+		student.setPassport(passport);
+		//em.persist(student);
+		
 	}
 	
 	@Override
 	public void saveStudentWithPassport() {
-		Passport passport = new Passport("1234788");
-		em.persist(passport);
-		// To actually add the OneToOne relationship, you have to set the Passport to the Student
-		Student student = new Student("AMY");
+		Passport passport = em.find(Passport.class, 40001L);
+		
+		Student student = new Student("rworot");
+		
 		student.setPassport(passport);
-		em.persist(student);
+		passport.setStudent(student);
+		insert(student);
 	}
+
+	@Override
+	public void addCoursesToStudent(Long id, Course course) {
+		em.persist(course);
+		Student student = findById(id);
+		student.addCourse(course);
+		course.addStudent(student);
+		
+	}
+
+	@Override
+	public void insertStudentAndCourse(Student student, Course course) {
+		//Student student = new Student("LOng");
+		//Course course = new Course("English");
+		em.persist(course);
+		em.persist(student);
+		student.addCourse(course);
+		course.addStudent(student);
+		
+	}
+	
+	
+	
 
 }

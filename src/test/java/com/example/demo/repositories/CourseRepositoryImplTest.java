@@ -2,7 +2,8 @@ package com.example.demo.repositories;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+
+import javax.persistence.EntityManager;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,8 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.domain.Course;
+import com.example.demo.domain.Review;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -24,6 +27,9 @@ public class CourseRepositoryImplTest {
 
 	@Autowired
 	CourseRepository courseRepository;
+	
+	@Autowired
+	EntityManager entityManager;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -61,5 +67,22 @@ public class CourseRepositoryImplTest {
 	public void testDeleteByIdBasic() {
 		courseRepository.deleteById(10001L);
 		assertNull(null, courseRepository.findById(10001L));
+	}
+	
+	@Test 
+	@Transactional
+	public void retrieveReviewsForCourse() {
+		System.out.println("LTROTNMNRWOMNMTRMNTWRONMT");
+		Course course = courseRepository.findById(10002L);
+		System.out.println(course.getReviews());
+	}
+	
+	@Test 
+	@Transactional
+	public void retrieveCourseFromReviews() {
+		Review review = entityManager.find(Review.class, 10043L);
+		Course course = review.getCourse();
+		System.out.println(course);
+		
 	}
 }

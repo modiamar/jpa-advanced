@@ -1,8 +1,10 @@
 package com.example.demo.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Passport {
@@ -11,12 +13,11 @@ public class Passport {
 	@GeneratedValue
 	private Long id;
 	private String number;
-
-	//private Student student;
 	
-	public Passport() {
-		
-	}
+	@OneToOne(fetch=FetchType.LAZY ,mappedBy="passport") //Student now owns the passport
+	private Student student;
+	
+	public Passport() {	}
 	
 	public Passport(String number) {
 		super();
@@ -30,6 +31,14 @@ public class Passport {
 	}
 	public String getNumber() {
 		return number;
+	}
+
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
 	@Override

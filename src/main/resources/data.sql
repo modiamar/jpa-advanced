@@ -11,6 +11,16 @@ insert into student(id, name, passport_id) values(10004,'Deecfe',40002);
 insert into student(id, name, passport_id) values(10005,'Doe',40003);
 
 
-insert into review(id, rating, description) values(10045,'5', 'Review1');
-insert into review(id, rating, description) values(10043,'6', 'Review2');
-insert into review(id, rating, description) values(10013,'7', 'Review3');
+insert into review(id, rating, description, course_id) values(10045,'5', 'Review1',10001);
+insert into review(id, rating, description, course_id) values(10043,'6', 'Review2',10002);
+insert into review(id, rating, description, course_id) values(10013,'7', 'Review3',10002);
+
+insert into dog(id, name) values(10004,'Deecfe');
+insert into owner(id, name, doggy_id) values(10003,'Amar', 10004);
+
+insert into student_course (student_id, course_id)
+	values (10003, 10002);
+insert into student_course (student_id, course_id)
+	values (10003, 10003);
+insert into student_course (student_id, course_id)
+	values (10005, 10003);
